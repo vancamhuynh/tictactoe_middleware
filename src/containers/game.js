@@ -1,6 +1,5 @@
 import { addMove, jumpToStep } from '../actions';
-import Game from '../components/game'
-import React from 'react'
+import Game from '../components/Game'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({

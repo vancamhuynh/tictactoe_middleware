@@ -1,3 +1,5 @@
+import { updateMove, ADD_MOVE } from '../actions'
+
 const calWinner = (squares) => {
     const lines = [
         [0, 1, 2],
@@ -20,15 +22,33 @@ const calWinner = (squares) => {
     return null;
 }
 const calculateWinner = store => next => action => {
-    const state = store.getState()
-    const history = state.history.slice(state.history.length + 1)
-    const current = history[state.stepNumber]
-    const squares = current.squares.slice();
-
-    const winner = calWinner(squares);
-    store.setState({ winner: winner });
-
-    return next(action);
+    switch(action.type) {
+        case ADD_MOVE: {
+            const state = store.getState();
+            const history = state.history.slice(0, state.history.length + 1);
+            const current = history[state.stepNumber];
+            const squares = current.squares.slice();
+        
+            if ( state.winner || squares[action.index]) {
+                return
+            }
+        
+            squares[action.index] = state.xIsNext? 'X' : 'O';
+            const winner = calWinner(squares);
+        
+            return next(updateMove(
+                history.concat([{
+                    squares: squares
+                }]),
+                !state.xIsNext,
+                history.length,
+                winner         
+            ));
+        }
+            
+        default:
+            next(action)
+    }
 }
 
 export default calculateWinner

@@ -1,5 +1,6 @@
 import React from 'react'
-import Board from './board'
+import Board from './Board'
+import PropTypes from 'prop-types'
 
 const Game = ({ history, winner, xIsNext, stepNumber, handleSquareClick, handleStepClick }) => {
     const getMoves = history.map((step, move) => {
@@ -13,7 +14,7 @@ const Game = ({ history, winner, xIsNext, stepNumber, handleSquareClick, handleS
     
     return (
         <div className="game">
-        <h4>Let's play!!! Mar 31</h4>
+        <h4>Let's play!!! Apr 07</h4>
         <div className="game-board">
             <Board 
                 squares={history[stepNumber].squares}
@@ -26,6 +27,15 @@ const Game = ({ history, winner, xIsNext, stepNumber, handleSquareClick, handleS
         </div>
     </div>
     )
+}
+
+Game.propTypes = {
+    history: PropTypes.arrayOf(PropTypes.object).isRequired,
+    winner: PropTypes.string.isRequired, 
+    xIsNext: PropTypes.bool.isRequired, 
+    stepNumber: PropTypes.number.isRequired, 
+    handleSquareClick: PropTypes.func.isRequired, 
+    handleStepClick: PropTypes.func.isRequired
 }
 
 export default Game
