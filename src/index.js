@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
 import logger from './utils/logger'
 import calculateWinner from './utils/calculateWinner'
-import Game from './components/Game'
+import Game from './containers/game'
 
 const store = createStore(
     rootReducer,
